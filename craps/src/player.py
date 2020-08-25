@@ -1,4 +1,11 @@
 import numpy as np
+"""
+Bet placement Encoding:
+    0 : 'Pass'
+    1 : 'Don't Pass'
+        ...
+    4 : ...
+"""
 
 
 class Player(object):
@@ -39,10 +46,10 @@ class Player(object):
         """
         if self.chips - amount >= 0:
             try:
-                if placement == 'pass' and not self.dont_pass:
+                if placement == 0 and not self.dont_pass:
                     self.pass_ += amount
                     self.chips -= amount
-                elif placement == 'dont_pass' and not self.pass_:
+                elif placement == 1 and not self.pass_:
                     self.dont_pass += amount
                     self.chips -= amount
             except:
@@ -129,11 +136,11 @@ class Player(object):
                     win_odds = 2*self.pass_odds + self.pass_odds
                     self.chips += win_odds
             print(f'Pass wins! Payout: {win + win_odds}')
-            self.reset_bet('pass_')
+            self.reset_bet(0)
 
     def pass_loses(self):
         print(f"Pass loses {self.pass_ + self.pass_odds}")
-        self.reset_bet('pass_')
+        self.reset_bet(0)
 
     def dont_pass_wins(self, point_on=0):
         if self.dont_pass:
@@ -155,12 +162,12 @@ class Player(object):
                     self.chips += win_odds
 
             print(f'Dont pass wins! Pay out: {win + win_odds}')
-            self.reset_bet('dont_pass')
+            self.reset_bet(1)
 
     ### Table Cleaning ###
     def dont_pass_loses(self):
         print(f"Don't pass loses {self.dont_pass + self.dont_pass_odds}")
-        self.reset_bet('dont_pass')
+        self.reset_bet(1)
 
     def dont_pass_push(self):
         print("Don't Pass push!")
@@ -168,9 +175,9 @@ class Player(object):
         self.dont_pass_ = 0
 
     def reset_bet(self, placement):
-        if placement == 'pass_':
+        if placement == 0:  # pass
             self.pass_ = 0
             self.pass_odds = 0
-        elif placement == 'dont_pass':
+        elif placement == 1:  # don't pass
             self.dont_pass = 0
             self.dont_pass_odds = 0
