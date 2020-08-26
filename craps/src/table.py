@@ -187,3 +187,5 @@ class Table:
             amount = self.player.dont_pass_wins(point)
             self.winning_bet.append(1)
         self.amount_won.append(amount)
+
+    # TODO update loss helper fn
