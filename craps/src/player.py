@@ -66,14 +66,17 @@ class Player(object):
             if point_on in {6, 8}:
                 amount = 5*self.pass_
                 self._take_odds(amount)
+                return amount
             # 4x
             elif point_on in {9, 5}:
                 amount = 4*self.pass_
                 self._take_odds(amount)
+                return amount
             # 3x
             elif point_on in {4, 10}:
                 amount = 3*self.pass_
                 self._take_odds(amount)
+                return amount
 
         else:
             print("We don't play by those rules at this casino")
@@ -96,14 +99,17 @@ class Player(object):
             if point_on in {6, 8}:
                 amount = 5*self.dont_pass
                 self._lay_odds(amount)
+                return amount
             # 4x
             elif point_on in {9, 5}:
                 amount = 4*self.dont_pass
                 self._lay_odds(amount)
+                return amount
             # 3x
             elif point_on in {4, 10}:
                 amount = 3*self.dont_pass
                 self._lay_odds(amount)
+                return amount
         else:
             print("We don't play by those rules at this casino")
 
@@ -137,6 +143,7 @@ class Player(object):
                     self.chips += win_odds
             print(f'Pass wins! Payout: {win + win_odds}')
             self.reset_bet(0)
+            return win + win_odds
 
     def pass_loses(self):
         print(f"Pass loses {self.pass_ + self.pass_odds}")
@@ -163,8 +170,10 @@ class Player(object):
 
             print(f'Dont pass wins! Pay out: {win + win_odds}')
             self.reset_bet(1)
+            return win + win_odds
 
     ### Table Cleaning ###
+
     def dont_pass_loses(self):
         print(f"Don't pass loses {self.dont_pass + self.dont_pass_odds}")
         self.reset_bet(1)
